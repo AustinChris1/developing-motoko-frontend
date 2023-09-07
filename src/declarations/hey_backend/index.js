@@ -10,8 +10,8 @@ export { idlFactory } from "./hey_backend.did.js";
  * beginning in dfx 0.15.0
  */
 export const canisterId =
-  process.env.VITE_CANISTER_ID_HEY_BACKEND ||
-  process.env.VITE_HEY_BACKEND_CANISTER_ID;
+  process.env.CANISTER_ID_HEY_BACKEND ||
+  process.env.HEY_BACKEND_CANISTER_ID;
 
 export const createActor = (canisterId, options = {}) => {
   const agent = options.agent || new HttpAgent({ ...options.agentOptions });
@@ -38,6 +38,7 @@ export const createActor = (canisterId, options = {}) => {
     canisterId,
     ...options.actorOptions,
   });
+};
 };
 
 export const hey_backend = createActor(canisterId);
