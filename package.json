@@ -11,7 +11,7 @@
     "Canister"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3000",
     "build": "vite build",
     "prebuild": "npm run generate",
     "start": "webpack serve --mode development --env development",
@@ -24,14 +24,18 @@
     "dotenv": "^16.3.1",
     "dotenv-webpack": "^8.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-node-polyfills": "^0.12.0",
+    "vite-plugin-node-stdlib-browser": "^0.2.1"
   },
   "devDependencies": {
     "@dfinity/agent": "0.15.5",
     "@dfinity/candid": "0.15.5",
     "@dfinity/principal": "0.15.5",
+    "@types/node": "^20.5.9",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "assert": "2.0.0",
     "autoprefixer": "^10.4.14",
