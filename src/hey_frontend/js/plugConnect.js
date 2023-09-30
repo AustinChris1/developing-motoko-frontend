@@ -43,7 +43,8 @@ async function plugConnect() {
 }
 async function whoami() {
   const iAm = await backend.hey_backend.me();
-  console.log(iAm)
+  console.log(iAm.toString())
+  // return iAm.toString();
 }
 export {
   plugConnect,
