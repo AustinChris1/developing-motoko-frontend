@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { close, menu, logo } from "../assets";
 import { navLinks } from "../constants";
-import {connectplug} from "../js/plugConnect.js"
+import {plugConnect } from "../js/plugConnect.js";
 // import * as backend from "../../declarations/hey_backend"
 
 const NavBar = () => {
   const [toggle, setToggle] = useState(false);
-
+  const [principalId, setPrincipalId] = useState(null);
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
       <img src={logo} alt="Internet Computer" className="w-[150px] h-[45px]" />
@@ -23,12 +23,19 @@ const NavBar = () => {
             <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
         ))}
-        <button
-          onClick={connectplug}
-          className="connectBtn items-center flex text-white font-poppins font-normal ml-10 justify-end"
-        >
-          Connect Wallet
-        </button>
+            <button
+              onClick={async () => {
+                try {
+                  const principalId = await plugConnect();
+                  setPrincipalId(principalId)
+                } catch (e) {
+                  console.warn(e);
+                }
+              }}
+              className="connectBtn text-white items-center mt-4"
+            >
+              {principalId ? principalId : "Connect Wallet"}
+            </button>
       </ul>
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
@@ -54,10 +61,17 @@ const NavBar = () => {
               </li>
             ))}
             <button
-              onClick={connectplug}
+              onClick={async () => {
+                try {
+                  const principalId = await plugConnect();
+                  setPrincipalId(principalId)
+                } catch (e) {
+                  console.warn(e);
+                }
+              }}
               className="connectBtn text-white items-center mt-4"
             >
-              Connect Wallet
+              {principalId ? principalId : "Connect Wallet"}
             </button>
           </ul>
         </div>
@@ -65,6 +79,5 @@ const NavBar = () => {
     </nav>
   );
 };
-
 
 export default NavBar;
