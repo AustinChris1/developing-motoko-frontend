@@ -3,8 +3,6 @@ import NavBar from "./components/NavBar";
 import { whoami } from "./js/plugConnect";
 
 function App() {
-  console.log(global)
-  console.log(global.someFn)
   return (
     <div className="bg-primary w-full overflow-hidden">
       <NavBar />

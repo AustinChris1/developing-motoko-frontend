@@ -1,12 +1,9 @@
 import { defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react-refresh";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import dfxJson from "./dfx.json";
 import fs from "fs";
-import inject from "@rollup/plugin-inject";
-// import StdlibUint8Array from '@stdlib/array-uint8'
-import stdlibBrowser from "node-stdlib-browser";
+import { polyfillNode } from "esbuild-plugin-polyfill-node";
 
 const isDev = process.env["DFX_NETWORK"] !== "ic";
 
@@ -39,7 +36,7 @@ const aliases = Object.entries(dfxJson.canisters).reduce(
 
 		return {
 			...acc,
-			["canisters/" + name]: path.join(outputRoot, "index" + ".js"),
+			[`canisters/${name}`]: path.join(outputRoot, "index" + ".js"),
 		};
 	},
 	{},
@@ -66,11 +63,9 @@ export default defineConfig({
 	// plugins: [react(), reactRefresh()],
 	plugins: [
 		react(),
-		{
-			...inject({
-				global: [stdlibBrowser, "global"],
-			}),
-		},
+		polyfillNode({
+			// Options (optional)
+		}),
 	],
 	resolve: {
 		alias: {
@@ -99,6 +94,6 @@ export default defineConfig({
 		"process.env.NODE_ENV": JSON.stringify(
 			isDev ? "development" : "production",
 		),
-		global: 'globalThis'
+		global: "globalThis",
 	},
 });
